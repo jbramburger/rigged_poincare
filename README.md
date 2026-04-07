@@ -40,11 +40,12 @@ The repository currently features three primary scripts:
   - per3asym.mat
   - per4asym.math
 
-- ks_utils/                  (Auxiliary scripts for KS analysis)
-  - symbolic dynamics tools
-  - transition matrix construction
-  - periodic orbit detection
-  - visualization utilities
+- ks_utils/                  (Auxiliary scripts for KS analysis)  
+  - ks_adjacency_cycles.m    (Compute symbolic cycles predicted by the adjacency matrix)  
+  - ks_find_per_3.m          (Identify period-3 orbits and their preimages via eigenfunction minima)  
+  - ks_find_cycles.m         (Search Poincaré section data for candidate p-cycles via return errors)  
+  - ks_plot_upos.m           (Plot continuous-time UPOs and their projections onto the Poincaré section)
+  - ks_psec_0298_x2=0.mat    (Poincare section data gathered from a long trajectory)
 
 ## Dependencies
 
