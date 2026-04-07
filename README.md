@@ -29,27 +29,22 @@ The repository currently features three primary scripts:
 
 ## Repository Structure
 
-├── logistic.m        # Logistic map analysis  
-├── rossler.m        # Rössler Poincaré section analysis  
-├── kuramoto_sivashinsky.m             # KS Poincaré section analysis  
-│  
-├── ks_upos/                   # Unstable periodic orbit (UPO) data for KS  
-│   ├── per1asym.mat 
-│   ├── per1sym.mat 
-│   ├── per2asym.mat  
-│   ├── per3asym.mat  
-│   └── per4asym.mat  
-│  
-├── ks_utils/                  # Auxiliary scripts for KS analysis  
-│   ├── symbolic dynamics tools  
-│   ├── transition matrix construction  
-│   ├── periodic orbit detection  
-│   └── visualization utilities  
-│  
-└── data/ (optional)  
-    └── saved Poincaré section datasets  
+- logistic.m        (Logistic map analysis)
+- rossler.m        (Rössler Poincaré section analysis)
+- kuramoto_sivashinsky.m             (KS Poincaré section analysis)
 
----
+- ks_upos/                   (Unstable periodic orbit data for KS)
+  - per1sym.mat
+  - per1asym.mat
+  - per2asym.mat
+  - per3asym.mat
+  - per4asym.math
+
+- ks_utils/                  (Auxiliary scripts for KS analysis)
+  - symbolic dynamics tools
+  - transition matrix construction
+  - periodic orbit detection
+  - visualization utilities
 
 ## Dependencies
 
