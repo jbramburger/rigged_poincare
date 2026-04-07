@@ -29,7 +29,6 @@ The repository currently features three primary scripts:
 
 ## Repository Structure
 
-.
 ├── logistic.m        # Logistic map analysis  
 ├── rossler.m        # Rössler Poincaré section analysis  
 ├── kuramoto_sivashinsky.m             # KS Poincaré section analysis  
