@@ -172,6 +172,7 @@ ylabel('$\mathrm{Im}(\lambda)$', 'Interpreter', 'latex', 'FontSize', 24, 'FontWe
 set(gca, 'FontSize', 16)
 axis([-1.1 1.1 -1.1 1.1])
 grid on
+box on
 
 save_figure_pdf(gcf, 'logistic_eigenvalues_2')
 
