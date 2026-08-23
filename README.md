@@ -1,4 +1,4 @@
-# Koopman Operator Methods for Poincare Maps of Chaotic Dynamics
+# Structure, Dynamical Organization, and Transport in Chaotic Dynamics through Koopman Spectral Analysis
 
 This repository contains MATLAB scripts for the data-driven analysis of nonlinear dynamical systems using Koopman operator techniques, with a particular focus on rigged Dynamic Mode Decomposition (riggedDMD).
 
