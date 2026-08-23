@@ -119,6 +119,7 @@ The supplementary forced Van der Pol test can be run separately:
 
 ```matlab
 vanderpol
+```
 
 The Duffing scripts automatically load their corresponding Poincaré data:
 
