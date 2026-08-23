@@ -36,6 +36,13 @@ The repository currently features five primary scripts:
   - Identification of related spectral maxima near $2\pi/7$, $4\pi/7$, and $6\pi/7$, with the $6\pi/7$ component dominant.
   - Construction of a seven-region transport model with the progression $R_j\mapsto R_{j+3}\pmod 7$.
   - Robustness tests across smoothing parameters and analysis of transport errors near the low-modulus skeleton.
+ 
+- **Supplementary Forced Van der Pol Oscillator (`vanderpol.m`)**
+  - Analysis of a periodically forced Van der Pol oscillator using a stroboscopic Poincaré map.
+  - Computation of the riggedDMD spectral density and a generalized eigenfunction near $0.81\pi$.
+  - Examination of phase-transport branches and their organization on the Poincaré section.
+  - Analysis of low-modulus defect regions, their return statistics, and their transition dynamics.
+  - Included as a record of additional numerical tests; this example does not appear in the paper.
 
 ---
 
@@ -46,6 +53,7 @@ The repository currently features five primary scripts:
 - **`kuramoto_sivashinsky.m`** — Kuramoto–Sivashinsky Poincaré-section analysis.
 - **`duffing_regime_I.m`** — Forced Duffing oscillator, Regime I.
 - **`duffing_regime_II.m`** — Forced Duffing oscillator, Regime II.
+- **`vanderpol.m`** — Supplementary forced Van der Pol analysis.
 
 - **`ks_upos/`** — Unstable periodic-orbit data for the Kuramoto–Sivashinsky example.
   - `per1sym.mat`
@@ -68,6 +76,9 @@ The repository currently features five primary scripts:
   - `duffing_psec_II.mat` — Poincaré-section data for Regime II.
 
 - **`duffing_results/`** — Generated Duffing results and figures. This directory is created automatically when the Duffing scripts are run.
+
+- **`vdp_psec.mat`** — Optional cached Poincaré data for the forced Van der Pol example. If this file is absent, `vanderpol.m` generates and saves it automatically.
+- **`vanderpol_results/`** — Generated forced Van der Pol results and figures. This directory is created automatically when `vanderpol.m` is run.
 
 ---
 
@@ -103,6 +114,11 @@ kuramoto_sivashinsky
 duffing_regime_I
 duffing_regime_II
 ```
+
+The supplementary forced Van der Pol test can be run separately:
+
+```matlab
+vanderpol
 
 The Duffing scripts automatically load their corresponding Poincaré data:
 
