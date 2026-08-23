@@ -1,8 +1,8 @@
 # Structure, Dynamical Organization, and Transport in Chaotic Dynamics through Koopman Spectral Analysis
 
-This repository contains MATLAB scripts for the data-driven analysis of nonlinear dynamical systems using Koopman operator techniques, with a particular focus on rigged Dynamic Mode Decomposition (riggedDMD).
+This repository contains MATLAB scripts for the data-driven analysis of nonlinear dynamical systems using Koopman operator techniques, with particular emphasis on rigged Dynamic Mode Decomposition (riggedDMD). The examples use spectral measures and smoothed generalized eigenfunctions to uncover coherent regions, symbolic dynamics, unstable periodic-orbit organization, and macroscopic transport in chaotic systems.
 
-The codes are designed to study spectral properties, generalized eigenfunctions, and symbolic dynamics arising in chaotic systems, with applications ranging from low-dimensional maps to high-dimensional PDEs.
+The examples range from a one-dimensional chaotic map to Poincare maps obtained from low- and high-dimensional continuous-time systems. Although the governing equations are known, the Koopman analyses are performed directly from trajectory or Poincare-section data and do not require closed-form expressions for the corresponding return maps.
 
 ---
 
