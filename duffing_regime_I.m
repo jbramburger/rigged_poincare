@@ -26,15 +26,17 @@
 %   alpha = -1, beta = 1, delta = 0.3, omega = 1.2, gamma = 0.5.
 %
 % The Poincare map is obtained by sampling once per forcing period
-% T = 2*pi/omega.  The supplied data file duffing_psec.mat must contain
-% an N-by-2 array x whose columns are position and velocity.
+% T = 2*pi/omega.  The supplied file
+% duffing_utils/duffing_psec_I.mat must contain an N-by-2 array x whose
+% columns are position and velocity.
 %
 % RIGGEDDMD IMPLEMENTATION
 % The riggedDMD code used here is taken from:
 %   https://github.com/MColbrook/Rigged-Dynamic-Mode-Decomposition
 %
 % REQUIRED FILES
-%   duffing_psec.mat          : Poincare data stored as x = [position,velocity]
+%   duffing_utils/duffing_psec_I.mat
+%                             : Poincare data stored as x = [position,velocity]
 %   main_routines/            : riggedDMD and its dependencies
 %
 % OUTPUTS
@@ -57,7 +59,7 @@
 %   - The Koopman computations use only the sampled Poincare trajectory.
 %   - The delay matrices are assembled directly, avoiding construction of
 %     an unnecessary full Hankel matrix.
-%   - The saved results file is used by duffing_upo_plot.m.
+%   - The saved results file is used by duffing_utils/duffing_upo_plot.m.
 %
 % AUTHOR
 % Jason J. Bramburger
@@ -71,7 +73,7 @@ clc
 
 %% User parameters
 
-dataFile = 'duffing_psec.mat';
+dataFile = fullfile('duffing_utils','duffing_psec_I.mat');
 routinesDirectory = 'main_routines';
 outputDirectory = 'duffing_results';
 
@@ -99,7 +101,7 @@ assert(exist('riggedDMD','file') == 2, ...
     'riggedDMD.m was not found in %s.',routinesPath)
 
 S = load(dataPath);
-assert(isfield(S,'x'),'duffing_psec.mat must contain the variable x.')
+assert(isfield(S,'x'),'duffing_psec_I.mat must contain the variable x.')
 x = S.x;
 assert(isnumeric(x) && size(x,2) == 2, ...
     'x must be an N-by-2 array [position, velocity].')

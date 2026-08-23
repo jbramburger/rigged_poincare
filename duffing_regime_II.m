@@ -28,15 +28,17 @@
 %   alpha = -1, beta = 0.25, delta = 0.1, omega = 2, gamma = 2.5.
 %
 % The Poincare map is obtained by sampling once per forcing period
-% T = 2*pi/omega.  The supplied file duffing_psec_2.mat must contain an
-% N-by-2 array x whose columns are position and velocity.
+% T = 2*pi/omega.  The supplied file
+% duffing_utils/duffing_psec_II.mat must contain an N-by-2 array x whose
+% columns are position and velocity.
 %
 % RIGGEDDMD IMPLEMENTATION
 % The riggedDMD code used here is taken from:
 %   https://github.com/MColbrook/Rigged-Dynamic-Mode-Decomposition
 %
 % REQUIRED FILES
-%   duffing_psec_2.mat        : Poincare data stored as x = [position,velocity]
+%   duffing_utils/duffing_psec_II.mat
+%                             : Poincare data stored as x = [position,velocity]
 %   main_routines/            : riggedDMD and its dependencies
 %
 % OUTPUTS
@@ -79,7 +81,7 @@ clc
 
 %% User parameters
 
-dataFile = 'duffing_psec_2.mat';
+dataFile = fullfile('duffing_utils','duffing_psec_II.mat');
 routinesDirectory = 'main_routines';
 outputDirectory = 'duffing_results';
 
@@ -109,7 +111,7 @@ assert(exist('riggedDMD','file') == 2, ...
     'riggedDMD.m was not found in %s.',routinesPath)
 
 S = load(dataPath);
-assert(isfield(S,'x'),'duffing_psec_2.mat must contain the variable x.')
+assert(isfield(S,'x'),'duffing_psec_II.mat must contain the variable x.')
 x = S.x;
 assert(isnumeric(x) && size(x,2) == 2, ...
     'x must be an N-by-2 array [position, velocity].')
