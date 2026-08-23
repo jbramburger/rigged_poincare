@@ -5,7 +5,7 @@
 %
 %  DESCRIPTION
 %  This script combines the generalized eigenfunction computed by
-%  duffing.m with the periodic-orbit data computed by
+%  duffing_regime_I.m with the periodic-orbit data computed by
 %  duffing_upo_search.m.  For each requested minimal period it produces a
 %  phase-partition plot and a log-modulus plot, with every stroboscopic
 %  intersection of the corresponding unstable periodic orbits overlaid.
@@ -17,8 +17,8 @@
 %    4. Overlay their section points on the three-region phase partition.
 %    5. Overlay the same points on the generalized-eigenfunction modulus.
 %
-%  REQUIRED PRECOMPUTATION
-%      Run duffing.m, then duffing_upo_search.m.
+%  REQUIRED PRECOMPUTATION AND LOCATION
+%      Run ../duffing_regime_I.m, then duffing_upo_search.m.
 %
 %  RIGGEDDMD IMPLEMENTATION
 %  The riggedDMD code used by the companion analysis is taken from:
@@ -41,7 +41,8 @@
 %  The UPO search and plotting stages are intentionally separate: shooting
 %  is comparatively expensive, whereas this script can quickly regenerate
 %  figures after cosmetic changes.  The region labels are defined by the
-%  phase convention saved by duffing.m.
+%  phase convention saved by duffing_regime_I.m.  This file is intended to
+%  reside in duffing_utils/ beneath the repository root.
 %
 %  AUTHOR
 %  Jason J. Bramburger
@@ -55,10 +56,11 @@ markerSize = 100;
 saveFigures = true;
 
 scriptDirectory = fileparts(mfilename('fullpath'));
-resultsDirectory = fullfile(scriptDirectory,'duffing_results');
-regimeFile = resolve_path(scriptDirectory, ...
+repositoryDirectory = fileparts(scriptDirectory);
+resultsDirectory = fullfile(repositoryDirectory,'duffing_results');
+regimeFile = resolve_path(repositoryDirectory, ...
     fullfile('duffing_results','duffing_regime1_results.mat'));
-upoFile = resolve_path(scriptDirectory, ...
+upoFile = resolve_path(repositoryDirectory, ...
     fullfile('duffing_results','duffing_upo_data.mat'));
 
 regimeData = load(regimeFile,'sectionData','region','logModulus');

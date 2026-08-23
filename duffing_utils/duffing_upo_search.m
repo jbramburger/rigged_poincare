@@ -12,7 +12,7 @@
 %  cyclic shifts along the same orbit), and saves the resulting orbit data.
 %
 %  WORKFLOW
-%    1. Load stroboscopic data from duffing_psec.mat.
+%    1. Load stroboscopic data from duffing_psec_I.mat.
 %    2. Identify the best k-step recurrences for k = 1,...,kMax.
 %    3. Cluster nearby recurrences to obtain shooting initial guesses.
 %    4. Solve F^k(z)-z = 0 with fsolve, or fminsearch when fsolve is absent.
@@ -31,11 +31,11 @@
 %      https://github.com/MColbrook/Rigged-Dynamic-Mode-Decomposition
 %
 %  INPUT
-%      duffing_psec.mat containing x, an N-by-2 array whose columns are
+%      duffing_psec_I.mat containing x, an N-by-2 array whose columns are
 %      position and velocity at successive forcing periods.
 %
 %  OUTPUT
-%      duffing_results/duffing_upo_data.mat
+%      ../duffing_results/duffing_upo_data.mat
 %
 %  MAIN USER PARAMETERS
 %      kMax             largest map period to search
@@ -48,7 +48,8 @@
 %  The Optimization Toolbox is optional.  When fsolve is unavailable, the
 %  script minimizes the squared shooting residual with fminsearch.  Orbit
 %  discovery can be computationally expensive; run duffing_upo_plot.m to
-%  regenerate figures without repeating this search.
+%  regenerate figures without repeating this search.  This file is intended
+%  to reside in duffing_utils/ beneath the repository root.
 %
 %  AUTHOR
 %  Jason J. Bramburger
@@ -58,16 +59,16 @@ clear; close all; clc;
 
 %% Paths and input data
 scriptDirectory = fileparts(mfilename('fullpath'));
-addpath(fullfile(scriptDirectory,'main_routines'));
+repositoryDirectory = fileparts(scriptDirectory);
 
-dataFile = resolve_path(scriptDirectory,'duffing_psec.mat');
+dataFile = resolve_path(scriptDirectory,'duffing_psec_I.mat');
 data = load(dataFile,'x');
 if ~isfield(data,'x') || size(data.x,2) ~= 2
-    error('duffing_psec.mat must contain an N-by-2 variable named x.');
+    error('duffing_psec_I.mat must contain an N-by-2 variable named x.');
 end
 sectionData = data.x;
 
-resultsDirectory = fullfile(scriptDirectory,'duffing_results');
+resultsDirectory = fullfile(repositoryDirectory,'duffing_results');
 if ~exist(resultsDirectory,'dir')
     mkdir(resultsDirectory);
 end
