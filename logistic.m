@@ -9,7 +9,7 @@
 %   logistic_eigenfunction.pdf          d = 51, mpEDMD eigenvalue nearest -1
 %   logistic_measure_1.pdf              d = 51, epsilon = 0.01
 %   logistic_measure_2.pdf              d = 51, epsilon = 0.75
-%   logistic_rigged_eigenfunction.pdf   d = 51, epsilon = 0.01, theta = pi
+%   logistic_rigged_eigenfunction.pdf   d = 51, epsilon = 0.75, theta = pi
 %
 % The trajectory contains 20001 retained states. A delay dictionary of
 % dimension d therefore gives 20001-d paired rows: 19990 rows for d = 11
