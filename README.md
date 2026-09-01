@@ -1,4 +1,4 @@
-# The Spectral Skeleton of Chaos: Koopman Wave Packets on Poincar\'e Sections
+# The Spectral Skeleton of Chaos: Koopman Wave Packets on Poincaré Sections
 
 This repository contains MATLAB scripts for the data-driven analysis of nonlinear dynamical systems using Koopman operator techniques, with particular emphasis on **rigged Dynamic Mode Decomposition (riggedDMD)**. The examples use spectral measures and smoothed generalized eigenfunctions to uncover coherent regions, symbolic dynamics, unstable periodic-orbit organization, and macroscopic transport in chaotic systems.
 
