@@ -41,8 +41,10 @@
 %  The UPO search and plotting stages are intentionally separate: shooting
 %  is comparatively expensive, whereas this script can quickly regenerate
 %  figures after cosmetic changes.  The region labels are defined by the
-%  phase convention saved by duffing_regime_I.m.  This file is intended to
-%  reside in duffing_utils/ beneath the repository root.
+%  phase convention saved by duffing_regime_I.m.  Legacy period-two records
+%  containing adaptive ODE output are reduced to their two stroboscopic
+%  endpoints before plotting.  This file is intended to reside in
+%  duffing_utils/ beneath the repository root.
 %
 %  AUTHOR
 %  Jason J. Bramburger
@@ -84,6 +86,9 @@ orbitStrobePoints = upoData.orbitStrobePoints;
 
 assert(size(sectionData,1)==numel(region) && numel(region)==numel(logModulus), ...
     'The saved section, phase partition, and modulus have inconsistent lengths.')
+assert(iscell(orbitStrobePoints) && ...
+    numel(orbitStrobePoints)==numel(orbitPeriods), ...
+    'The saved orbit periods and stroboscopic-point records are inconsistent.')
 
 %% Publication style
 regionColours = [36 122 254; 230 159 0; 0 120 0]/255;
@@ -96,65 +101,131 @@ for mapPeriod = plotPeriods
         warning('No orbit of minimal period %d was found; skipping it.',mapPeriod)
         continue
     end
-    periodPoints = vertcat(orbitStrobePoints{orbitIndices});
+    [periodPoints,repairedRecordCount] = collect_period_points( ...
+        orbitStrobePoints,orbitPeriods,orbitIndices);
+    if repairedRecordCount > 0
+        fprintf(['Reduced %d legacy period-two record(s) to their two ' ...
+            'stroboscopic endpoints.\n'],repairedRecordCount)
+    end
+    fprintf('Minimal period %d: plotting %d section points from %d orbit(s).\n', ...
+        mapPeriod,size(periodPoints,1),numel(orbitIndices))
 
     %% Phase partition with period-mapPeriod orbit intersections
     phaseFigure = figure('Name',sprintf('Duffing phase with period %d UPOs',mapPeriod), ...
         'Color','w','Position',[100 100 850 650]);
-    hold on
+    phaseAxes = axes(phaseFigure);
+    hold(phaseAxes,'on')
     phaseHandles = gobjects(3,1);
     for regionIndex = 1:3
         inRegion = region==regionIndex;
-        phaseHandles(regionIndex) = scatter(sectionData(inRegion,1), ...
+        phaseHandles(regionIndex) = scatter(phaseAxes,sectionData(inRegion,1), ...
             sectionData(inRegion,2),pointSize,regionColours(regionIndex,:), ...
             'filled','MarkerFaceAlpha',0.65,'MarkerEdgeAlpha',0.65);
     end
-    orbitHandle = scatter(periodPoints(:,1),periodPoints(:,2),markerSize, ...
+    orbitHandle = scatter(phaseAxes,periodPoints(:,1),periodPoints(:,2),markerSize, ...
         orbitColour,'filled','MarkerEdgeColor','w','LineWidth',1.2);
-    xlabel('$x$','Interpreter','latex','FontSize',24)
-    ylabel('$\dot{x}$','Interpreter','latex','FontSize',24)
-    title(sprintf('Minimal period $%d$',mapPeriod), ...
+    xlabel(phaseAxes,'$x$','Interpreter','latex','FontSize',24)
+    ylabel(phaseAxes,'$\dot{x}$','Interpreter','latex','FontSize',24)
+    title(phaseAxes,sprintf('Minimal period $%d$',mapPeriod), ...
         'Interpreter','latex','FontSize',20)
-    legend([phaseHandles; orbitHandle], ...
+    legend(phaseAxes,[phaseHandles; orbitHandle], ...
         {'$R_1$','$R_2$','$R_3$',sprintf('period-$%d$ UPO',mapPeriod)}, ...
         'Interpreter','latex','Location','best','FontSize',14)
-    set(gca,'FontSize',16,'Layer','top')
-    box on
-    axis tight
+    set(phaseAxes,'FontSize',16,'Layer','top')
+    box(phaseAxes,'on')
+    axis(phaseAxes,'tight')
 
     %% Log-modulus with the same orbit intersections
     modulusFigure = figure('Name',sprintf('Duffing modulus with period %d UPOs',mapPeriod), ...
         'Color','w','Position',[100 100 850 650]);
-    scatter(sectionData(:,1),sectionData(:,2),pointSize,logModulus, ...
+    modulusAxes = axes(modulusFigure);
+    scatter(modulusAxes,sectionData(:,1),sectionData(:,2),pointSize,logModulus, ...
         'filled','MarkerFaceAlpha',0.72,'MarkerEdgeAlpha',0.72)
-    hold on
-    scatter(periodPoints(:,1),periodPoints(:,2),markerSize,orbitColour, ...
+    hold(modulusAxes,'on')
+    scatter(modulusAxes,periodPoints(:,1),periodPoints(:,2),markerSize,orbitColour, ...
         'filled','MarkerEdgeColor','w','LineWidth',1.2)
-    xlabel('$x$','Interpreter','latex','FontSize',24)
-    ylabel('$\dot{x}$','Interpreter','latex','FontSize',24)
-    title(sprintf('Minimal period $%d$',mapPeriod), ...
+    xlabel(modulusAxes,'$x$','Interpreter','latex','FontSize',24)
+    ylabel(modulusAxes,'$\dot{x}$','Interpreter','latex','FontSize',24)
+    title(modulusAxes,sprintf('Minimal period $%d$',mapPeriod), ...
         'Interpreter','latex','FontSize',20)
-    colourBar = colorbar;
-    colourBar.Label.String = '$\log|\phi|$';
+    colourBar = colorbar(modulusAxes);
+    colourBar.Label.String = '$\log|\phi_{\varepsilon,\theta}|$';
     colourBar.Label.Interpreter = 'latex';
     colourBar.Label.FontSize = 20;
-    colormap(parula)
-    set(gca,'FontSize',16,'Layer','top')
-    box on
-    axis tight
+    colormap(modulusAxes,parula)
+    set(modulusAxes,'FontSize',16,'Layer','top')
+    box(modulusAxes,'on')
+    axis(modulusAxes,'tight')
 
     if saveFigures
-        exportgraphics(phaseFigure,fullfile(outputDirectory, ...
-            sprintf('duffing_phase_%d.pdf',mapPeriod)),'ContentType','vector');
-        exportgraphics(modulusFigure,fullfile(outputDirectory, ...
-            sprintf('duffing_mod_%d.pdf',mapPeriod)),'ContentType','vector');
+        save_figure_pdf(phaseFigure,fullfile(outputDirectory, ...
+            sprintf('duffing_phase_%d.pdf',mapPeriod)))
+        save_figure_pdf(modulusFigure,fullfile(outputDirectory, ...
+            sprintf('duffing_mod_%d.pdf',mapPeriod)))
     end
 end
 
 fprintf('Generated UPO overlays for minimal periods: %s\n', ...
     strjoin(string(intersect(plotPeriods,unique(orbitPeriods).')) ,', '));
 
-%% Local function
+%% Local functions
+function [periodPoints,repairedRecordCount] = collect_period_points( ...
+        orbitStrobePoints,orbitPeriods,orbitIndices)
+%COLLECT_PERIOD_POINTS Validate and combine the requested section points.
+
+pointCells = cell(numel(orbitIndices),1);
+repairedRecordCount = 0;
+
+for localIndex = 1:numel(orbitIndices)
+    orbitIndex = orbitIndices(localIndex);
+    expectedPointCount = orbitPeriods(orbitIndex);
+    points = orbitStrobePoints{orbitIndex};
+
+    assert(isnumeric(points) && ismatrix(points) && size(points,2)==2 && ...
+        all(isfinite(points(:))), ...
+        'Orbit %d does not contain a finite N-by-2 point array.',orbitIndex)
+
+    if size(points,1)==expectedPointCount
+        pointCells{localIndex} = points;
+    elseif expectedPointCount==2 && size(points,1)>2
+        % Older searches passed [0,T] to ode45.  For a two-entry time span,
+        % ode45 returns its adaptive internal steps; only the endpoints are
+        % successive stroboscopic intersections.
+        pointCells{localIndex} = points([1 end],:);
+        repairedRecordCount = repairedRecordCount+1;
+    else
+        error(['Orbit %d is tagged as minimal period %d but contains %d ' ...
+            'stored points. Regenerate duffing_upo_data.mat with the ' ...
+            'current duffing_upo_search.m.'], ...
+            orbitIndex,expectedPointCount,size(points,1))
+    end
+end
+
+periodPoints = vertcat(pointCells{:});
+end
+
+function save_figure_pdf(figHandle,fileName)
+%SAVE_FIGURE_PDF Save a figure to a tightly sized vector PDF.
+
+[fileDirectory,~,extension] = fileparts(fileName);
+if isempty(extension)
+    fileName = [fileName '.pdf'];
+elseif ~strcmpi(extension,'.pdf')
+    error('Figure output must have a .pdf extension.')
+end
+
+assert(isempty(fileDirectory) || isfolder(fileDirectory), ...
+    'The figure output directory does not exist: %s',fileDirectory)
+
+set(figHandle,'PaperUnits','centimeters')
+set(figHandle,'Units','centimeters')
+position = get(figHandle,'Position');
+set(figHandle,'PaperSize',[position(3) position(4)])
+set(figHandle,'PaperPositionMode','manual')
+set(figHandle,'PaperPosition',[0 0 position(3) position(4)])
+print(figHandle,fileName,'-dpdf','-painters')
+end
+
 function path = resolve_path(scriptDirectory,fileName)
 candidates = {fullfile(scriptDirectory,fileName),fileName};
 for candidateIndex = 1:numel(candidates)

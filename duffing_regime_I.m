@@ -911,23 +911,26 @@ function write_matrix(fileID, matrix, format)
 end
 
 function save_figure_pdf(figHandle, fileName)
-    %SAVE_FIGURE_PDF Save a figure to a tightly sized vector PDF.
+    %SAVE_FIGURE_PDF Save a tightly sized vector PDF.
 
     [fileDirectory, ~, extension] = fileparts(fileName);
     if isempty(extension)
         fileName = [fileName '.pdf'];
     elseif ~strcmpi(extension, '.pdf')
-        error('Figure output must have a .pdf extension.')
+        error('Figure output must have a .pdf extension.');
     end
 
-    assert(isempty(fileDirectory) || isfolder(fileDirectory), ...
-        'The figure output directory does not exist: %s', fileDirectory)
+    if ~isempty(fileDirectory) && ~isfolder(fileDirectory)
+        mkdir(fileDirectory)
+    end
 
     set(figHandle, 'PaperUnits', 'centimeters')
     set(figHandle, 'Units', 'centimeters')
+
     position = get(figHandle, 'Position');
-    set(figHandle, 'PaperSize', [position(3), position(4)])
+    set(figHandle, 'PaperSize', [position(3) position(4)])
     set(figHandle, 'PaperPositionMode', 'manual')
-    set(figHandle, 'PaperPosition', [0, 0, position(3), position(4)])
+    set(figHandle, 'PaperPosition', [0 0 position(3) position(4)])
+
     print(figHandle, fileName, '-dpdf', '-painters')
 end

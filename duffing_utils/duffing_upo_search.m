@@ -182,6 +182,9 @@ for candidateIndex = 1:size(candidateSeeds,1)
     period = candidatePeriods(candidateIndex);
     strobePoints = generate_strobe_points(seed,period,forcingPeriod, ...
         alpha,beta,delta,omega,gamma,odeOptions);
+    assert(size(strobePoints,1)==period && size(strobePoints,2)==2, ...
+        'A period-%d orbit did not produce exactly %d section points.', ...
+        period,period)
 
     duplicate = false;
     for orbitIndex = 1:numel(orbitPeriods)
@@ -252,14 +255,24 @@ residual = trajectory(end,:).'-seed(:);
 end
 
 function points = generate_strobe_points(seed,period,forcingPeriod,alpha,beta,delta,omega,gamma,options)
-sampleTimes = (0:period-1)*forcingPeriod;
-if period == 1
-    points = seed(:).';
-    return
+% Return exactly one point at each forcing period.  In particular, avoid
+% passing [0,T] as the ode45 output vector for period two: MATLAB interprets
+% a two-entry vector as an integration interval and returns adaptive internal
+% steps rather than only the requested stroboscopic endpoints.
+points = zeros(period,numel(seed));
+points(1,:) = seed(:).';
+state = seed(:);
+currentTime = 0;
+
+for pointIndex = 2:period
+    nextTime = currentTime+forcingPeriod;
+    [~,trajectory] = ode45( ...
+        @(t,z) duffing_rhs(t,z,alpha,beta,delta,omega,gamma), ...
+        [currentTime nextTime],state,options);
+    state = trajectory(end,:).';
+    points(pointIndex,:) = state.';
+    currentTime = nextTime;
 end
-[~,trajectory] = ode45(@(t,z) duffing_rhs(t,z,alpha,beta,delta,omega,gamma), ...
-    sampleTimes,seed(:),options);
-points = trajectory;
 end
 
 function dz = duffing_rhs(t,z,alpha,beta,delta,omega,gamma)
