@@ -1,0 +1,51 @@
+Rossler Poincare-section archive
+Created: 20260901T121952
+Analyzed: 20260901T123247
+
+System parameters: a=0.1, b=0.1, c=18
+Initial condition: [0.1, -8, 0.3]
+Integration interval: [0, 100000]
+Discarded transient: t < 100
+Discarded events: 16
+Solver: ode45
+Relative tolerance: 1e-12
+Absolute tolerances: [1e-12, 1e-12, 1e-12]
+Maximum solver step: 0.1
+Crossing rule: Event-located x=0 crossing with positive direction; retain only events satisfying xdot=-y-z>0 after the discarded transient.
+Event-location rule: Root located by the continuous event interpolation used by ode45.
+
+Retained section points N: 16223
+Delay dimension d: 50
+Hankel snapshot pairs N-d: 16173
+Uniform weight: 6.183144747418538e-05
+Sum of weights: 0.999999999999952
+
+Estimated y_*: -22.9120843514
+Estimated y_**: -16.8104397051
+Histogram peak near y_*: -21.9965000000 (density 0.1239043956)
+Histogram peak near y_**: -16.0565000000 (density 0.0973386291)
+
+Transition-cell order: (I1,I2,I3)
+Transition counts:
+         942        3366           0
+           0           0        5955
+        3366        2589           4
+Conditional transition probabilities:
+  0.21866295  0.78133705  0.00000000
+  0.00000000  0.00000000  1.00000000
+  0.56485988  0.43446887  0.00067125
+Binary transition support:
+           1           1           0
+           0           0           1
+           1           1           1
+Spectral epsilon: 0.25
+Spectral peak theta: 2.0284073464 = 0.6456621116*pi
+Spectral peak value: 0.3245596819
+
+Wave-packet epsilon: 0.9
+Wave-packet theta: 2.0943951024
+Trough near y_*: -23.2082187641 (log-modulus -6.5362159502)
+Trough near y_**: -17.3303894976 (log-modulus -3.7340023365)
+
+riggedDMD implementation: /Users/jbramburger7/Documents/MATLAB/Machine Learning/Koopman and Poincare/main_routines/riggedDMD.m
+mpEDMD implementation: /Users/jbramburger7/Documents/MATLAB/Machine Learning/Koopman and Poincare/main_routines/mpEDMDqr.m
