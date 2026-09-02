@@ -1,0 +1,51 @@
+Forced Duffing Regime I stroboscopic archive
+Created: 20260902T145456
+Analyzed: 20260902T150030
+
+Parameters: alpha=-1, beta=1, delta=0.3, omega=1.2, gamma=0.5
+Initial condition [x,v,phi]: [1, 0, 0]
+Integration interval: [0, 99999.999]
+Original requested output spacing: 0.001
+Original requested output count: 100000000
+Solver: ode45
+Relative tolerance: 1e-12
+Absolute tolerances: [1e-12, 1e-12, 1e-12]
+Maximum solver step: 0.001
+Solver output refinement: 1
+Integration block length: 500
+Forcing phase at section: 0 rad
+Forcing period: 5.235987755982989
+Crossing rule: Event-located root of sin(phi)=0 with positive direction, excluding the initial point; equivalently phi=0 mod 2*pi.
+Event location: Root located by the continuous event interpolation used by ode45.
+Raw event count: 19098
+Discarded initial crossings: 98
+Discarded transient interval: [0, 518.3627878442658)
+Retained event interval: [518.3627878442658, 99996.89427162152]
+Maximum event phase residual: 1.1204794578740459e-09 rad
+
+Retained section points N: 19000
+Observable: standardized position x
+Observable mean: -0.2269436284098998
+Observable standard deviation: 0.8355754977244042
+Delay dimension d: 20
+Hankel snapshot pairs N-d: 18980
+Uniform quadrature weight: 5.268703898840885e-05
+Sum of weights: 1.000000000000075
+Smoothing epsilon: 0.25
+Target theta: 2.094395102393195 = 0.6666666666666666*pi
+Spectral peak theta: 2.081305133003238 = 0.6625000000000001*pi
+Spectral peak value: 0.740101480318647
+Circular mean phase advance: 2.09204852939415
+Phase residual concentration: 0.961774332111812
+Reliable cyclic-transition fraction: 0.957183418512209
+
+Transition counts (rows source, columns destination):
+          42        6036         282
+         354         201        5725
+        5965          43         331
+Row-normalized transition matrix:
+  0.00660377  0.94905660  0.04433962
+  0.05636943  0.03200637  0.91162420
+  0.94100016  0.00678340  0.05221644
+
+riggedDMD implementation: /Users/jbramburger7/Documents/MATLAB/Machine Learning/Koopman and Poincare/main_routines/riggedDMD.m
