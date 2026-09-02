@@ -1,0 +1,79 @@
+Forced Duffing Regime II stroboscopic archive
+Created: 20260902T153546
+Analyzed: 20260902T153731
+
+Parameters: alpha=-1, beta=0.25, delta=0.1, omega=2, gamma=2.5
+Initial condition [x,v,phi]: [1, 0, 0]
+Integration interval: [0, 99999.999]
+Original requested output spacing: 0.001
+Original requested output count: 100000000
+Solver: ode45
+Relative tolerance: 1e-12
+Absolute tolerances: [1e-12, 1e-12, 1e-12]
+Maximum solver step: 0.001
+Solver output refinement: 1
+Integration block length: 500
+Forcing phase at section: 0 rad
+Forcing period: 3.141592653589793
+Crossing rule: Event-located root of sin(phi)=0 with positive direction, excluding the initial point; equivalently phi=0 mod 2*pi.
+Event location: Root located by the continuous event interpolation used by ode45.
+Raw event count: 31830
+Discarded initial crossings: 0
+Discarded transient interval: [0, 0)
+Retained event interval: [3.141592653589822, 99996.89416376317]
+Maximum event phase residual: 1.8626217934913119e-09 rad
+
+Retained section points N: 31830
+Observable: standardized position x
+Observable mean: -0.8093873062004532
+Observable standard deviation: 2.052705332190767
+Delay dimension d: 20
+Hankel snapshot pairs N-d: 31810
+Uniform quadrature weight: 3.143665513989312e-05
+Sum of weights: 0.999999999999872
+Target theta: 2.692793703076966 = 0.8571428571428571*pi
+Reliability quantile: 0.05
+Retained low-modulus quantile: 0.1
+
+epsilon theta_max/pi eta rho_phase med_abs_r p_plus3 p7 baseline_error low_modulus_error E_err
+ 0.0500   0.85750000 1.04718532e-03   0.98732332   0.01312802   0.93536173   0.78193881   0.06463827   0.32848935   5.08196397
+ 0.1000   0.85750000 1.13574100e-03   0.98669021   0.01349348   0.93242923   0.77998931   0.06757077   0.34347532   5.08319408
+ 0.1500   0.85750000 1.32719739e-03   0.98454053   0.01472989   0.92816277   0.77420369   0.07183723   0.36615905   5.09706515
+ 0.2000   0.85750000 1.23118913e-03   0.98011076   0.01711324   0.92081962   0.76470773   0.07918038   0.41146540   5.19655767
+ 0.2500   0.85750000 1.03868830e-03   0.97260483   0.01981775   0.91062440   0.75301072   0.08937560   0.45476190   5.08821121
+
+Oriented circular mean phase advance by epsilon:
+  epsilon=0.0500 mean_advance/pi=0.8568095277
+  epsilon=0.1000 mean_advance/pi=0.8567813396
+  epsilon=0.1500 mean_advance/pi=0.8567203971
+  epsilon=0.2000 mean_advance/pi=0.8567509575
+  epsilon=0.2500 mean_advance/pi=0.8568122324
+
+Spectral-figure epsilon: 0.25
+Phase/transport-figure epsilon: 0.25
+Spectral-figure peak locations theta/pi: 0.28500000 0.57250000 0.85750000
+Spectral-figure peak heights: 9.53410914e-02 1.95248360e-01 6.77860773e-01
+
+Observable peaks at phase-figure epsilon:
+  x        theta/pi=0.85750000 height=6.77860773e-01
+  dx/dt    theta/pi=0.85750000 height=5.48338087e-01
+  x+dx/dt  theta/pi=0.85750000 height=6.20475869e-01
+
+Displayed transition counts (rows source, columns destination):
+         0         1        90      3977       358       144        15
+         0         0         9       297      3842       351         9
+         0         1        28       100       295      4008       113
+       211        77        97        26         8        90      4001
+      3853       342        74         0         1         1       241
+       453      3877       204         0         0         0        80
+        68       210      4044       110         7        20        76
+Displayed row-normalized transition matrix:
+  0.00000000  0.00021810  0.01962923  0.86739368  0.07808070  0.03140676  0.00327154
+  0.00000000  0.00000000  0.00199645  0.06588287  0.85226264  0.07786158  0.00199645
+  0.00000000  0.00022002  0.00616062  0.02200220  0.06490649  0.88184818  0.02486249
+  0.04678492  0.01707317  0.02150776  0.00576497  0.00177384  0.01995565  0.88713969
+  0.85394504  0.07579787  0.01640071  0.00000000  0.00022163  0.00022163  0.05341312
+  0.09817945  0.84026875  0.04421326  0.00000000  0.00000000  0.00000000  0.01733853
+  0.01499449  0.04630650  0.89173098  0.02425579  0.00154355  0.00441014  0.01675854
+
+riggedDMD implementation: /Users/jbramburger7/Documents/MATLAB/Machine Learning/Koopman and Poincare/main_routines/riggedDMD.m
