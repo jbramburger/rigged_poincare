@@ -11,8 +11,8 @@
 %  intersection of the corresponding unstable periodic orbits overlaid.
 %
 %  WORKFLOW
-%    1. Load duffing_results/duffing_regime1_results.mat.
-%    2. Load duffing_results/duffing_upo_data.mat.
+%    1. Load duffing_section_I_cache.mat from the repository root.
+%    2. Load the previously computed duffing_upo_data.mat archive.
 %    3. Select all orbit cycles having each requested minimal period.
 %    4. Overlay their section points on the three-region phase partition.
 %    5. Overlay the same points on the generalized-eigenfunction modulus.
@@ -25,12 +25,12 @@
 %      https://github.com/MColbrook/Rigged-Dynamic-Mode-Decomposition
 %
 %  OUTPUTS
-%      duffing_results/duffing_phase_1.pdf
-%      duffing_results/duffing_mod_1.pdf
-%      duffing_results/duffing_phase_2.pdf
-%      duffing_results/duffing_mod_2.pdf
-%      duffing_results/duffing_phase_3.pdf
-%      duffing_results/duffing_mod_3.pdf
+%      duffing_phase_1.pdf
+%      duffing_mod_1.pdf
+%      duffing_phase_2.pdf
+%      duffing_mod_2.pdf
+%      duffing_phase_3.pdf
+%      duffing_mod_3.pdf
 %
 %  MAIN USER PARAMETERS
 %      plotPeriods     minimal map periods to display
@@ -57,11 +57,13 @@ saveFigures = true;
 
 scriptDirectory = fileparts(mfilename('fullpath'));
 repositoryDirectory = fileparts(scriptDirectory);
-resultsDirectory = fullfile(repositoryDirectory,'duffing_results');
+outputDirectory = repositoryDirectory;
 regimeFile = resolve_path(repositoryDirectory, ...
-    fullfile('duffing_results','duffing_regime1_results.mat'));
-upoFile = resolve_path(repositoryDirectory, ...
-    fullfile('duffing_results','duffing_upo_data.mat'));
+    'duffing_section_I_cache.mat');
+upoFile = resolve_first_existing({ ...
+    fullfile(repositoryDirectory,'duffing_upo_data.mat'), ...
+    fullfile(repositoryDirectory,'duffing_results','duffing_upo_data.mat'), ...
+    fullfile(scriptDirectory,'duffing_upo_data.mat')});
 
 regimeData = load(regimeFile,'sectionData','region','logModulus');
 upoData = load(upoFile,'orbitPeriods','orbitStrobePoints');
@@ -73,10 +75,6 @@ for fieldIndex = 1:numel(requiredRegimeFields)
 end
 assert(isfield(upoData,'orbitPeriods') && isfield(upoData,'orbitStrobePoints'), ...
     '%s does not contain the required orbit data.',upoFile)
-
-if ~exist(resultsDirectory,'dir')
-    mkdir(resultsDirectory);
-end
 
 sectionData = regimeData.sectionData;
 region = regimeData.region(:);
@@ -146,9 +144,9 @@ for mapPeriod = plotPeriods
     axis tight
 
     if saveFigures
-        exportgraphics(phaseFigure,fullfile(resultsDirectory, ...
+        exportgraphics(phaseFigure,fullfile(outputDirectory, ...
             sprintf('duffing_phase_%d.pdf',mapPeriod)),'ContentType','vector');
-        exportgraphics(modulusFigure,fullfile(resultsDirectory, ...
+        exportgraphics(modulusFigure,fullfile(outputDirectory, ...
             sprintf('duffing_mod_%d.pdf',mapPeriod)),'ContentType','vector');
     end
 end
@@ -166,4 +164,14 @@ for candidateIndex = 1:numel(candidates)
     end
 end
 error('Could not find %s.',fileName);
+end
+
+function path = resolve_first_existing(candidates)
+for candidateIndex = 1:numel(candidates)
+    if isfile(candidates{candidateIndex})
+        path = candidates{candidateIndex};
+        return
+    end
+end
+error('Could not find duffing_upo_data.mat.');
 end
