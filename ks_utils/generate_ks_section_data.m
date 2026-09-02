@@ -13,13 +13,13 @@ function cache = generate_ks_section_data(outputFile)
 % first, and verifies that x(2:2:end,:) contains N=11544 states for F=P^2.
 %
 % OUTPUT
-%   ks_psec_0298_x2=0_event.mat, unless another filename is supplied.
+%   ks_section_cache.mat, unless another filename is supplied.
 %   The file contains x, m, and nu for compatibility with the original
 %   analysis, together with a cache structure containing the full crossing
 %   states and numerical provenance.
 
     if nargin < 1 || isempty(outputFile)
-        outputFile = 'ks_psec_0298_x2=0_event.mat';
+        outputFile = 'ks_section_cache.mat';
     end
 
     nu = 0.0298;
