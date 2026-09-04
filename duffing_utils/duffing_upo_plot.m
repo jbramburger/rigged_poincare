@@ -91,7 +91,7 @@ assert(iscell(orbitStrobePoints) && ...
     'The saved orbit periods and stroboscopic-point records are inconsistent.')
 
 %% Publication style
-regionColours = [36 122 254; 230 159 0; 0 120 0]/255;
+regionColours = [27 158 119; 217 95 2; 117 112 179]/255;
 orbitColour = [0 0 0];
 pointSize = 10;
 
@@ -134,6 +134,7 @@ for mapPeriod = plotPeriods
     set(phaseAxes,'FontSize',16,'Layer','top')
     box(phaseAxes,'on')
     axis(phaseAxes,'tight')
+    grid on
 
     %% Log-modulus with the same orbit intersections
     modulusFigure = figure('Name',sprintf('Duffing modulus with period %d UPOs',mapPeriod), ...
@@ -156,6 +157,7 @@ for mapPeriod = plotPeriods
     set(modulusAxes,'FontSize',16,'Layer','top')
     box(modulusAxes,'on')
     axis(modulusAxes,'tight')
+    grid on
 
     if saveFigures
         save_figure_pdf(phaseFigure,fullfile(outputDirectory, ...
