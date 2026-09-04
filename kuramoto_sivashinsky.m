@@ -465,16 +465,19 @@ logModulusSorted = wavePacketLogModulus(sortIndex);
 fig = figure('Color','w');
 hold on
 
-xline(markers.A(1),'--','Color',[1 69/255 79/255],'LineWidth',2)
-xline(markers.B(1),'--','Color',[1 69/255 79/255],'LineWidth',2)
-xline(markers.C(1),'--','Color',[1 69/255 79/255],'LineWidth',2)
+redColor    = [1 69/255 79/255];
+greenColor  = [0 120/255 0];
+purpleColor = [151/255 1/255 200/255];
 
-xline(markers.D(1),'--','Color',[0 120/255 0],'LineWidth',2)
-xline(markers.E(1),'--','Color',[0 120/255 0],'LineWidth',2)
-xline(markers.F(1),'--','Color',[0 120/255 0],'LineWidth',2)
+xline(markers.A(1),'--','Color',redColor,'LineWidth',2)
+xline(markers.B(1),'--','Color',redColor,'LineWidth',2)
+xline(markers.C(1),'--','Color',redColor,'LineWidth',2)
 
-xline(markers.G(1),'--', ...
-    'Color',[151/255 1/255 200/255], 'LineWidth',2)
+xline(markers.D(1),'--','Color',greenColor,'LineWidth',2)
+xline(markers.E(1),'--','Color',greenColor,'LineWidth',2)
+xline(markers.F(1),'--','Color',greenColor,'LineWidth',2)
+
+xline(markers.G(1),'--','Color',purpleColor,'LineWidth',2)
 
 plot(pc1Sorted,logModulusSorted,'k-','LineWidth',1.5)
 
@@ -486,6 +489,39 @@ set(gca,'FontSize',16)
 axis([7.75 10.6 -5.5 0])
 grid on
 box on
+
+% Label the vertical lines just above the lower horizontal axis,
+% slightly to the left of each line.
+ax = gca;
+xLimits = xlim(ax);
+yLimits = ylim(ax);
+
+labelDx = 0.010*diff(xLimits);
+labelY  = yLimits(1) + 0.025*diff(yLimits);
+
+text(markers.A(1)-labelDx,labelY,'A', ...
+    'Color',redColor,'FontSize',16,'FontWeight','bold', ...
+    'HorizontalAlignment','right','VerticalAlignment','bottom')
+text(markers.B(1)-labelDx,labelY,'B', ...
+    'Color',redColor,'FontSize',16,'FontWeight','bold', ...
+    'HorizontalAlignment','right','VerticalAlignment','bottom')
+text(markers.C(1)-labelDx,labelY,'C', ...
+    'Color',redColor,'FontSize',16,'FontWeight','bold', ...
+    'HorizontalAlignment','right','VerticalAlignment','bottom')
+
+text(markers.D(1)-labelDx,labelY,'D', ...
+    'Color',greenColor,'FontSize',16,'FontWeight','bold', ...
+    'HorizontalAlignment','right','VerticalAlignment','bottom')
+text(markers.E(1)-labelDx,labelY,'E', ...
+    'Color',greenColor,'FontSize',16,'FontWeight','bold', ...
+    'HorizontalAlignment','right','VerticalAlignment','bottom')
+text(markers.F(1)-labelDx,labelY,'F', ...
+    'Color',greenColor,'FontSize',16,'FontWeight','bold', ...
+    'HorizontalAlignment','right','VerticalAlignment','bottom')
+
+text(markers.G(1)-labelDx,labelY,'G', ...
+    'Color',purpleColor,'FontSize',16,'FontWeight','bold', ...
+    'HorizontalAlignment','right','VerticalAlignment','bottom')
 
 save_figure_pdf(fig, ...
     fullfile(outputDirectory,'ks_eigenfunction.pdf'))
