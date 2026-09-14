@@ -58,12 +58,8 @@ The repository features five primary scripts.
 
   * Studies the parameter regime
 
-    $$
-    \beta=1,\qquad
-    \delta=0.3,\qquad
-    \omega=1.2,\qquad
-    \gamma=0.5.
-    $$
+    $$\beta=1,\qquad \delta=0.3,\qquad \omega=1.2,\qquad \gamma=0.5.$$
+    
   * Generates event-located stroboscopic intersections and stores them in `duffing_section_I_cache.mat`.
   * Identifies a dominant spectral component near $2\pi/3$.
   * Constructs a three-region cyclic partition of the Poincaré section from the wave-packet phase.
@@ -74,19 +70,14 @@ The repository features five primary scripts.
 
   * Studies the parameter regime
 
-    $$
-    \beta=0.25,\qquad
-    \delta=0.1,\qquad
-    \omega=2,\qquad
-    \gamma=2.5.
-    $$
+    $$\beta=0.25,\qquad \delta=0.1,\qquad \omega=2,\qquad \gamma=2.5.$$
+    
   * Generates event-located stroboscopic intersections and stores them in `duffing_section_II_cache.mat`.
   * Identifies related spectral maxima near $2\pi/7$, $4\pi/7$, and $6\pi/7$, with the $6\pi/7$ component dominant.
   * Constructs a seven-region transport model with the progression
 
-    $$
-    R_j\longmapsto R_{j+3}\pmod 7.
-    $$
+    $$R_j\longmapsto R_{j+3}\pmod 7.$$
+    
   * Tests the robustness of this transport structure across smoothing parameters.
   * Quantifies the concentration of transport errors near the low-modulus spectral skeleton.
 
