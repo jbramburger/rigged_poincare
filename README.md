@@ -31,9 +31,7 @@ The repository features five primary scripts.
 
   * Integrates the Rössler system and locates crossings of the section
 
-    $$
-    x=0,\qquad \dot{x}>0
-    $$
+    $$x=0,\qquad \dot{x}>0$$
 
     using the ODE solver's event-location procedure.
   * Creates or loads the event-located section cache `rossler_section_cache.mat`.
@@ -48,9 +46,8 @@ The repository features five primary scripts.
   * Studies a 32-mode Galerkin truncation of the Kuramoto–Sivashinsky equation.
   * Uses event-located crossings of
 
-    \[
-    a_2=0,\qquad \dot{a}_2>0.
-    \]
+    $$a_2=0,\qquad \dot{a}_2>0.$$
+    
   * Projects the high-dimensional section data onto its leading uncentred principal-component directions.
   * Identifies a symmetry-induced flip between two components of the first-return dynamics.
   * Removes this immediate alternation by retaining every second crossing and studying the second-return map $F=P^2$ on a single component.
